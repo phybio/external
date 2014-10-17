@@ -7,7 +7,7 @@ PWD := $(shell pwd)
 
 all:
 	$(RM) -rf $(PWD)/scripts
-	ln -s $(KDIR)/scrips $(PWD)/scripts
+	ln -s $(KDIR)/scripts $(PWD)/scripts
 	$(MAKE) -C $(KDIR) M=$(PWD) ARCH=arm CROSS_COMPILE=arm-eabi- $(KDIR).config modules
 
 install:all
