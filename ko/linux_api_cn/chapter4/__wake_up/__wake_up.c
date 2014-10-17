@@ -11,6 +11,7 @@
 #include <linux/pid.h>
 #include <linux/wait.h>
 #include <linux/list.h>
+#include <linux/kthread.h>
 MODULE_LICENSE("GPL");
 
 /*È«ŸÖ±äÁ¿¶šÒå*/
@@ -31,17 +32,16 @@ int my_function(void * argc)
 /*Ä£¿éŒÓÔØº¯Êý¶šÒå*/
 static int __init __wake_up_init(void)
 {
-	int result=0;    //ŸÖ²¿±äÁ¿¶šÒå
+	struct task_struct *ts;
 	long left_time=0;
 	wait_queue_t data;
 	printk("<0>into __wake_up_init.\n");
-	result=kernel_thread(my_function,NULL,CLONE_KERNEL);  //ŽŽœšÐÂœø³Ì
+	ts=kthread_run(my_function,NULL,"my_function");  //ŽŽœšÐÂœø³Ì
        init_waitqueue_head(&head); //³õÊŒ»¯µÈŽý¶ÓÁÐÍ·ÔªËØ
 	init_waitqueue_entry(&data,current); //ÓÃµ±Ç°œø³Ì³õÊŒ»¯µÈŽý¶ÓÁÐÖÐµÄÒ»žöÔªËØ
 	add_wait_queue(&head,&data); //œ«µÈŽý¶ÓÁÐÔªËØŒÓÈëµÈŽý¶ÓÁÐÖÐ
 	left_time=sleep_on_timeout(&head,100);	//Ê¹µÈŽý¶ÓÁÐœø³Ì²»¿ÉÖÐ¶ÏµÄµÈŽý×ŽÌ¬
 	printk("<0>the return result of the sleep_on_timeout is:%ld\n",left_time); //ÏÔÊŸº¯Êýsleep_on_timeout( )µÄ·µ»Øœá¹û
-	printk("<0>the result of the kernel_thread is :%d\n",result); //ÏÔÊŸº¯Êýkernel_thread( )µÄ·µ»Øœá¹û
 	printk("<0>the current pid is:%d\n",current->pid);  //ÏÔÊŸµ±Ç°œø³ÌµÄPIDÖµ
 	printk("<0>out __wake_up_init.\n");
 	return 0;

@@ -10,6 +10,7 @@
 #include <linux/module.h>
 #include <linux/sched.h>
 #include <linux/list.h>
+#include <linux/kthread.h>
 MODULE_LICENSE("GPL");
 
 /*×Óœø³ÌŽŠÀíº¯Êý¶šÒå*/
@@ -25,28 +26,28 @@ int my_function(void * argc)
 static int __init add_wait_queue_init(void)
 {	
 	//ŸÖ²¿±äÁ¿¶šÒå
-	int result,result1;	
+	struct task_struct *result,*result1;
 	int  wait_queue_num=0;
 	wait_queue_head_t head;
 	wait_queue_t data,data1,*curr, *next;	
+//	struct pid * kpid = find_get_pid(result->pid);
+//	struct task_struct * task = pid_task(kpid,PIDTYPE_PID);
+//	struct pid * kpid1 = find_get_pid(result1->pid);
+//	struct task_struct * task1 = pid_task(kpid1,PIDTYPE_PID);
 
 	printk("<0>into add_wait_queue_init.\n");
 	
 	/*ŽŽœš2žöÐÂœø³Ì*/				
-	result=kernel_thread(my_function,NULL,CLONE_KERNEL);
-	result1=kernel_thread(my_function,NULL,CLONE_KERNEL);
+	result=kthread_run(my_function,NULL,"my_function");
+	result1=kthread_run(my_function,NULL,"my_function1");
 
 	/*»ñÈ¡ÐÂœø³ÌµÄœø³ÌÃèÊö·ûÐÅÏ¢*/
-	struct pid * kpid = find_get_pid(result);
-	struct task_struct * task = pid_task(kpid,PIDTYPE_PID);
-	struct pid * kpid1 = find_get_pid(result1);
-	struct task_struct * task1 = pid_task(kpid1,PIDTYPE_PID);
 
 	init_waitqueue_head(&head);   //³õÊŒ»¯µÈŽý¶ÓÁÐÍ·ÖžÕë
 
 	 /*ÓÃÐÂœø³Ì³õÊŒ»¯µÈŽý¶ÓÁÐÔªËØ*/
-	init_waitqueue_entry(&data,task);
-	init_waitqueue_entry(&data1,task1);
+	init_waitqueue_entry(&data,result);
+	init_waitqueue_entry(&data1,result1);
 
        /*œ«ÐÂœø³ÌŒÓÈëµÈŽý¶ÓÁÐÖÐ*/
 	add_wait_queue(&head,&data);
@@ -66,8 +67,8 @@ static int __init add_wait_queue_init(void)
 	printk("<0>the value of the wait_queue_num is :%d\n",wait_queue_num); //ÏÔÊŸµ±Ç°µÈŽý¶ÓÁÐÖÐµÄœø³ÌÊý
 	
 	/*ÏÔÊŸŽŽœšÐÂœø³ÌµÄœø³ÌºÅ*/
-	printk("<0>the result of the kernel_thread is :%d\n",result); 
-	printk("<0>the result1 of the kernel_thread is :%d\n",result1);
+	printk("<0>the result of the kernel_thread is :%d\n",result->pid); 
+	printk("<0>the result1 of the kernel_thread is :%d\n",result1->pid);
 	printk("<0>the current pid is:%d\n",current->pid);//ÏÔÊŸµ±Ç°œø³ÌµÄPIDÖµ
 	printk("<0>out add_wait_queue_init.\n");
 	return 0;
