@@ -1,11 +1,17 @@
-ifneq ($(KERNELRELEASE),)
-obj-m +=__wake_up.o 
-else
-PWD  := $(shell pwd)
-KVER ?= $(shell uname -r)
-KDIR := /lib/modules/$(KVER)/build
+obj-m += __wake_up.o
+#obj-m += abc.o
+#abc-objs := aaa.o bbb.o ccc.o
+
+KDIR := ${OUT}/obj/KERNEL/
+PWD := $(shell pwd)
+
 all:
-	$(MAKE) -C $(KDIR) M=$(PWD) 
+	$(RM) -rf $(PWD)/scripts
+	ln -s $(KDIR)/scrips $(PWD)/scripts
+	$(MAKE) -C $(KDIR) M=$(PWD) ARCH=arm CROSS_COMPILE=arm-eabi- $(KDIR).config modules
+
+install:all
+	$(MAKE) -C $(KDIR) M=$(PWD) modules_install
+
 clean:
-	rm -rf  *.o *.mod.c *.ko *.symvers
-endif
+	$(MAKE) -C $(KDIR) M=$(PWD) clean
