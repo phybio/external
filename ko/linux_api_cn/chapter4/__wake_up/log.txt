@@ -1,3 +1,4 @@
+ 1.
  <0>into __wake_up_init.
  <4>[  480.642501] c0 <0>in the kernel thread function!
  <4>[  480.642515] c0 <0>the current pid is:1715
@@ -7,3 +8,15 @@
  <4>[  480.642567] c0 <0>out __wake_up_init.
  <4>[  480.646971] c0 <0>the state of the real_parent after __wake_up is :1
  <4>[  480.646986] c0 <0>out the kernel thread function
+
+
+2.
+ <4>[20024.118375] c0 <0> /mhome/xiaodongwang/projects/sprdroid4.4_3.10_7731/external/ko/linux_api_cn/chapter4/__wake_up/__wake_up.c __wake_up_init 38: into __wake_up_init.
+ <4>[20024.118651] c0 <0> /mhome/xiaodongwang/projects/sprdroid4.4_3.10_7731/external/ko/linux_api_cn/chapter4/__wake_up/__wake_up.c my_function 23: in the kernel thread function!
+ <4>[20024.118668] c0 <1> /mhome/xiaodongwang/projects/sprdroid4.4_3.10_7731/external/ko/linux_api_cn/chapter4/__wake_up/__wake_up.c my_function 24: the current pid is:2726
+ <4>[20024.118683] c0 <2> /mhome/xiaodongwang/projects/sprdroid4.4_3.10_7731/external/ko/linux_api_cn/chapter4/__wake_up/__wake_up.c my_function 25: the state of the real_parent is :1
+ <4>[20024.118710] c0 <1> /mhome/xiaodongwang/projects/sprdroid4.4_3.10_7731/external/ko/linux_api_cn/chapter4/__wake_up/__wake_up.c __wake_up_init 44: the return result of the sleep_on_timeout is:100
+ <4>[20024.118725] c0 <2> /mhome/xiaodongwang/projects/sprdroid4.4_3.10_7731/external/ko/linux_api_cn/chapter4/__wake_up/__wake_up.c __wake_up_init 45: the current pid is:2725
+ <4>[20024.118739] c0 <3> /mhome/xiaodongwang/projects/sprdroid4.4_3.10_7731/external/ko/linux_api_cn/chapter4/__wake_up/__wake_up.c __wake_up_init 46: out __wake_up_init.
+ <4>[20024.122650] c0 <3> /mhome/xiaodongwang/projects/sprdroid4.4_3.10_7731/external/ko/linux_api_cn/chapter4/__wake_up/__wake_up.c my_function 27: the state of the real_parent after __wake_up is :1
+ <4>[20024.122670] c0 <4> /mhome/xiaodongwang/projects/sprdroid4.4_3.10_7731/external/ko/linux_api_cn/chapter4/__wake_up/__wake_up.c my_function 28: out the kernel thread function
