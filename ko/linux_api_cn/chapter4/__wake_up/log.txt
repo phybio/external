@@ -1,0 +1,9 @@
+ <0>into __wake_up_init.
+ <4>[  480.642501] c0 <0>in the kernel thread function!
+ <4>[  480.642515] c0 <0>the current pid is:1715
+ <4>[  480.642525] c0 <0>the state of the real_parent is :1
+ <4>[  480.642548] c0 <0>the return result of the sleep_on_timeout is:100
+ <4>[  480.642558] c0 <0>the current pid is:1714
+ <4>[  480.642567] c0 <0>out __wake_up_init.
+ <4>[  480.646971] c0 <0>the state of the real_parent after __wake_up is :1
+ <4>[  480.646986] c0 <0>out the kernel thread function
