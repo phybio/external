@@ -7,18 +7,20 @@
 ********************************************************************************/
 
 #include <linux/security.h>
-#include <linux/mm.h> 
+#include <linux/mm.h>
 #include <linux/init.h> 
 #include <linux/module.h> 
+#include <linux/sched.h>
+
 MODULE_LICENSE("GPL"); 
 static int __init find_vma_init(void); 
 static void __exit find_vma_exit(void);
 
 int __init find_vma_init(void) 
 { 
-	struct mm_struct *mm ; 
+	struct mm_struct *mm;
 	unsigned long addr ; 
-	struct vm_area_struct * vma ;
+	struct vm_area_struct *vma;
 
 	mm = current->mm;       //mm指向当前进程	
 	addr = mm->mmap->vm_next->vm_start + 1; 
