@@ -12,6 +12,7 @@ static void sigio_handler(int sigio)
 {
     printf("Get the SIGIO signal, we exit the application!\n");
     eflag = 0;
+    printf("set eflag equal to zero\n");
 }
 
 static int block_sigio(void)
@@ -42,6 +43,7 @@ int main(void)
     struct sigaction sigact, oldact;
     int oflag;
     int blocked;
+    unsigned int count = 0;
 
     blocked = block_sigio();
     
@@ -62,7 +64,10 @@ int main(void)
         oflag = fcntl(fd, F_GETFL);
         fcntl(fd, F_SETFL, oflag | FASYNC);
         printf("Do everything you want until we get a signal...\n");
-        while(eflag);
+        while(eflag) {
+		printf("count = %lu\n", count++);
+	}
+	printf("end while loop!\n");
         close(fd);
     } 
 
