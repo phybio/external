@@ -3,6 +3,7 @@
 #include <linux/kobject.h>
 #include <linux/sysfs.h>
 #include <linux/slab.h>
+#include <linux/err.h>
 
 static struct kobject *parent;
 static struct kobject *child;
