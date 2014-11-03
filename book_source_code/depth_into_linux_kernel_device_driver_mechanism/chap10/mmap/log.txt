@@ -1,0 +1,12 @@
+1. insmod mmap_demo.ko
+<4>[ 1519.603586] c0 kpa = 0x89eba000, kernel string = Hello world from kernel virtual space
+<4>[ 1519.603628] c0 major = 242, minor = 0
+
+2.
+:/data/app # busybox mknod /dev/demo_map c 242 0       
+
+3.
+:/data/app # ./mmap_demo_app /dev/demo_map 0x89eba000      
+UserAddr = 0xb6ef7000, Data from kernel:Hello world from kernel virtual space
+Writing a string to the kernel space...Done
+
